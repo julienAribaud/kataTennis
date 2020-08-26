@@ -9,4 +9,7 @@ public class Set extends Score{
         return pointPlayer1==pointPlayer2 && pointPlayer1==6;
     }
 
+    public boolean isWinningPoint(){
+        return false;
+    }
 }
