@@ -1,5 +1,8 @@
 public class Set extends Score{
 
+    public static final int NORMAL_WIN_SETS_NEEDED=6;
+    public static final int SPECIAL_WIN_SETS_NEEDED=7;
+
     public Set() {
         super();
     }
@@ -22,12 +25,16 @@ public class Set extends Score{
     // 2 player 2
     public int whoWin(){
 
-        if( pointPlayer1 == 6 && pointPlayer2 <5 || pointPlayer1 == 7 )
+        if( pointPlayer1 == NORMAL_WIN_SETS_NEEDED && pointPlayer2 <NORMAL_WIN_SETS_NEEDED-1 || pointPlayer1 == SPECIAL_WIN_SETS_NEEDED )
             return 1;
 
-        if( pointPlayer2 == 6 && pointPlayer1 <5 || pointPlayer2 == 7 )
+        if( pointPlayer2 == NORMAL_WIN_SETS_NEEDED && pointPlayer1 <NORMAL_WIN_SETS_NEEDED-1 || pointPlayer2 == SPECIAL_WIN_SETS_NEEDED )
             return 2;
 
         return 0;
+    }
+
+    public String getScore(){
+        return "("+pointPlayer1+"-"+pointPlayer2+")";
     }
 }
