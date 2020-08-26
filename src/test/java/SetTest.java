@@ -31,7 +31,7 @@ class SetTest {
 
         set=new ScoreBuilder().withPlayer1Points(6).withPlayer2Points(3).buildSet();
 
-        assertThat(set.isHasBeenWon()).isEqualTo(true);
+        assertThat(set.isFinished()).isTrue();
     }
 
     @Test
@@ -39,7 +39,7 @@ class SetTest {
 
         set=new ScoreBuilder().withPlayer1Points(3).withPlayer2Points(5).buildSet();
 
-        assertThat(set.isHasBeenWon()).isEqualTo(false);
+        assertThat(set.isFinished()).isFalse();
     }
 
     @Test
@@ -47,7 +47,7 @@ class SetTest {
 
         set=new ScoreBuilder().withPlayer1Points(6).withPlayer2Points(5).buildSet();
 
-        assertThat(set.isHasBeenWon()).isEqualTo(false);
+        assertThat(set.isFinished()).isFalse();
     }
 
     @Test
@@ -55,6 +55,6 @@ class SetTest {
 
         set=new ScoreBuilder().withPlayer1Points(6).withPlayer2Points(7).buildSet();
 
-        assertThat(set.isHasBeenWon()).isEqualTo(true);
+        assertThat(set.isFinished()).isTrue();
     }
 }
