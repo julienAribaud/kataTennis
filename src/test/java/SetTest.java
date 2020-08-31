@@ -11,8 +11,8 @@ class SetTest {
 
         set=new ScoreBuilder().withPlayer1Points(4).buildSet();
 
-        assertThat(set.getScore(1)).isEqualTo(4);
-        assertThat(set.getScore(2)).isEqualTo(0);
+        assertThat(set.getScorePlayer1()).isEqualTo(4);
+        assertThat(set.getScorePlayer2()).isEqualTo(0);
         assertThat(set.isTieBreak()).isFalse();
     }
 
@@ -21,8 +21,8 @@ class SetTest {
 
         set=new ScoreBuilder().withPlayer1Points(6).withPlayer2Points(6).buildSet();
 
-        assertThat(set.getScore(1)).isEqualTo(6);
-        assertThat(set.getScore(2)).isEqualTo(6);
+        assertThat(set.getScorePlayer1()).isEqualTo(6);
+        assertThat(set.getScorePlayer2()).isEqualTo(6);
         assertThat(set.isTieBreak()).isTrue();
     }
 

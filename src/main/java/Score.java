@@ -1,14 +1,23 @@
 public class Score {
-    protected int pointPlayer1=0;
-    protected int pointPlayer2=0;
+    private final int[] scorePlayers;
 
-    public void scorePlayer(int playerNumber){
-        if(playerNumber==1) pointPlayer1++;
-        else pointPlayer2++;
+    public Score(int scorePlayer1,int scorePlayer2){
+        scorePlayers= new int[]{scorePlayer1, scorePlayer2};
     }
 
-    public int getScore(int playerNumber){
-        if(playerNumber==1) return pointPlayer1;
-        else return pointPlayer2;
+    public void scorePlayer(int playerID){
+        scorePlayers[playerID-1]++;
+    }
+
+    private int getScore(int playerID) {
+        return scorePlayers[playerID - 1];
+    }
+
+    public int getScorePlayer1(){
+        return getScore(1);
+    }
+
+    public int getScorePlayer2(){
+        return getScore(2);
     }
 }

@@ -1,19 +1,18 @@
 public class Set extends Score{
 
-    public static final int NORMAL_WIN_SETS_NEEDED=6;
-    public static final int SPECIAL_WIN_SETS_NEEDED=7;
+    private static final int NORMAL_WIN_SETS_NEEDED=6;
+    private static final int TIEBREAK_SETS=6;
+    private static final int SPECIAL_WIN_SETS_NEEDED=7;
 
-    public Set() {
-        super();
+    public Set(){
+        this(0,0);
     }
-
-    public Set(Score score) {
-        pointPlayer1=score.pointPlayer1;
-        pointPlayer2=score.pointPlayer2;
+    public Set(int scorePlayer1, int scorePlayer2) {
+        super(scorePlayer1, scorePlayer2);
     }
 
     public boolean isTieBreak(){
-        return pointPlayer1==pointPlayer2 && pointPlayer1==6;
+        return getScorePlayer1()==TIEBREAK_SETS && getScorePlayer2()==TIEBREAK_SETS;
     }
 
     public boolean isFinished(){
@@ -25,16 +24,16 @@ public class Set extends Score{
     // 2 player 2
     public int whoWin(){
 
-        if( pointPlayer1 == NORMAL_WIN_SETS_NEEDED && pointPlayer2 <NORMAL_WIN_SETS_NEEDED-1 || pointPlayer1 == SPECIAL_WIN_SETS_NEEDED )
+        if( getScorePlayer1() == NORMAL_WIN_SETS_NEEDED && getScorePlayer2() <NORMAL_WIN_SETS_NEEDED-1 || getScorePlayer1() == SPECIAL_WIN_SETS_NEEDED )
             return 1;
 
-        if( pointPlayer2 == NORMAL_WIN_SETS_NEEDED && pointPlayer1 <NORMAL_WIN_SETS_NEEDED-1 || pointPlayer2 == SPECIAL_WIN_SETS_NEEDED )
+        if( getScorePlayer2() == NORMAL_WIN_SETS_NEEDED && getScorePlayer1() <NORMAL_WIN_SETS_NEEDED-1 || getScorePlayer2() == SPECIAL_WIN_SETS_NEEDED )
             return 2;
 
         return 0;
     }
 
     public String getScore(){
-        return "("+pointPlayer1+"-"+pointPlayer2+")";
+        return "("+ getScorePlayer1()+"-"+ getScorePlayer2()+")";
     }
 }

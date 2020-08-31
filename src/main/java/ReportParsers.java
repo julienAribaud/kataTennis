@@ -23,9 +23,9 @@ public class ReportParsers {
             status= "deuce";
 
         else {
-            status += getGamePointTranslation(game.getScore(1));
+            status += getGamePointTranslation(game.getScorePlayer1());
             status += "-";
-            status += getGamePointTranslation(game.getScore(2));
+            status += getGamePointTranslation(game.getScorePlayer2());
         }
         return String.format(GAME,status);
     }

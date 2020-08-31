@@ -12,8 +12,8 @@ class GameTest {
 
         game=new ScoreBuilder().withPlayer1Points(4).buildGame();
 
-        assertThat(game.getScore(1)).isEqualTo(4);
-        assertThat(game.getScore(2)).isEqualTo(0);
+        assertThat(game.getScorePlayer1()).isEqualTo(4);
+        assertThat(game.getScorePlayer2()).isEqualTo(0);
     }
 
     @Test

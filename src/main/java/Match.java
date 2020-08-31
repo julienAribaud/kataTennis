@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Match {
@@ -6,7 +7,7 @@ public class Match {
     public static final int NUMBER_SETS_NEEDED_TO_WIN=3;
 
     private Game currentGame;
-    private ArrayList<Set> sets;
+    private final List<Set> sets;
 
     public Match(){
         currentGame=new Game();

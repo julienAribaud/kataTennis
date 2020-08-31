@@ -1,26 +1,22 @@
 public class ScoreBuilder {
-
-    private final Score score=new Score();
+    int player1Points;
+    int player2Points;
 
     public ScoreBuilder withPlayer1Points(int player1Points){
-        for (int i = 0; i < player1Points; i++) {
-            this.score.scorePlayer(1);
-        }
+        this.player1Points=player1Points;
         return this;
     }
 
     public ScoreBuilder withPlayer2Points(int player2Points){
-        for (int i = 0; i < player2Points; i++) {
-            this.score.scorePlayer(2);
-        }
+        this.player2Points=player2Points;
         return this;
     }
 
     public Game buildGame(){
-        return new Game(score);
+        return new Game(player1Points,player2Points);
     }
 
     public Set buildSet(){
-        return new Set(score);
+        return new Set(player1Points,player2Points);
     }
 }
