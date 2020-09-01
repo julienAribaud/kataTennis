@@ -19,17 +19,24 @@ public class Match {
         if(isFinished()) return;
 
         currentGame.scorePlayer(playerNumber);
-        Set currentSet=sets.get(sets.size()-1);
 
-        if(currentGame.isFinished(currentSet.isTieBreak())){
+        if(currentGame.isFinished(isTieBreak())){
 
             currentGame=new Game();
 
-            currentSet.scorePlayer(playerNumber);
+            getCurrentSet().scorePlayer(playerNumber);
 
-            if(currentSet.isFinished() && !this.isFinished())
+            if(getCurrentSet().isFinished() && !this.isFinished())
                 sets.add(new Set());
         }
+    }
+
+    public boolean isTieBreak(){
+        return getCurrentSet().isTieBreak();
+    }
+
+    private Set getCurrentSet(){
+        return sets.get(sets.size()-1);
     }
 
     public boolean isFinished(){

@@ -15,14 +15,14 @@ public class Game extends Score{
 
     public boolean isDeuce(){
         return (getScorePlayer1()>POINT_30
-                && getScorePlayer2()>POINT_30
-                && getScorePlayer1()== getScorePlayer2());
+            && getScorePlayer2()>POINT_30
+            && getScorePlayer1()== getScorePlayer2());
     }
 
     public boolean isAdvantage(){
         return (getScorePlayer1()>POINT_30
-                && getScorePlayer2()>POINT_30
-                && Math.abs(getScorePlayer1()- getScorePlayer2())==1);
+            && getScorePlayer2()>POINT_30
+            && Math.abs(getScorePlayer1()- getScorePlayer2())==1);
     }
 
     public boolean isFinished(boolean isTieBreak){

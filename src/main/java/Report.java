@@ -17,16 +17,21 @@ public class Report {
         return String.format(SCORE,match.getSetsScore());
     }
 
-    public static String gameStatus(Game game){
+    public static String gameStatus(Game game,boolean isTieBreak){
         String status="";
 
-        if(game.isAdvantage())
+        if(isTieBreak) {
+            status += game.getScorePlayer1();
+            status += "-";
+            status += game.getScorePlayer2();
+
+        }else if(game.isAdvantage())
             status= ADVANTAGE;
 
         else if(game.isDeuce())
             status= DEUCE;
 
-        else {
+        else{
             status += getGamePointTranslation(game.getScorePlayer1());
             status += "-";
             status += getGamePointTranslation(game.getScorePlayer2());
@@ -45,7 +50,7 @@ public class Report {
     }
 
     public static String matchStatus(Match match){
-        String status="";
+        String status;
         if(!match.isFinished())
             status= IN_PROGRESS;
         else
@@ -60,7 +65,7 @@ public class Report {
         report.append(playerStatus(2,player2Name));
         report.append(scoreStatus(match));
         if(match.isFinished())
-            report.append(Report.gameStatus(match.getGame()));
+            report.append(Report.gameStatus(match.getGame(),match.isTieBreak()));
         report.append(Report.matchStatus(match));
         return report.toString();
     }
