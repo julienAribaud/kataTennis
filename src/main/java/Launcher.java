@@ -21,13 +21,6 @@ public class Launcher {
     }
 
     public String getReport(){
-        StringBuilder report=new StringBuilder();
-        report.append(ReportParsers.playerStatus(1,player1Name));
-        report.append(ReportParsers.playerStatus(2,player1Name));
-        report.append(ReportParsers.scoreStatus(match));
-        if(match.isFinished())
-            report.append(ReportParsers.gameStatus(match.getGame()));
-        report.append(ReportParsers.matchStatus(match));
-        return report.toString();
+        return Report.getReport(match,player1Name,player2Name);
     }
 }

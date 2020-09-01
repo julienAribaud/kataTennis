@@ -26,14 +26,13 @@ public class Game extends Score{
     }
 
     public boolean isFinished(boolean isTieBreak){
-        if(isTieBreak) {
+        if(isTieBreak)
             return  getScorePlayer1() > TIEBREAK_WIN_GAME_NEEDED - 1 && (getScorePlayer1() - getScorePlayer2()) > 1 ||
                     getScorePlayer2() > TIEBREAK_WIN_GAME_NEEDED - 1 && (getScorePlayer2() - getScorePlayer1()) > 1;
-        }
-        else{
+
+        else
             return  getScorePlayer1() == NORMAL_WIN_GAME_NEEDED && getScorePlayer2() < POINT_40 ||
                     getScorePlayer2() == NORMAL_WIN_GAME_NEEDED && getScorePlayer1() < POINT_40 ||
                     getScorePlayer1() > POINT_30 && getScorePlayer2() > POINT_30 && Math.abs(getScorePlayer1() - getScorePlayer2()) == 2;
-        }
     }
 }

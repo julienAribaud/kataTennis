@@ -1,9 +1,13 @@
-public class ReportParsers {
+public class Report {
 
-    protected static final String PLAYER="Player %d : %s";
-    protected static final String SCORE="Score : %s";
-    protected static final String GAME="Current game status : %s";
-    protected static final String MATCH="Match Status : %s";
+    private static final String PLAYER="Player %d : %s";
+    private static final String SCORE="Score : %s";
+    private static final String GAME="Current game status : %s";
+    private static final String MATCH="Match Status : %s";
+
+    private static final String ADVANTAGE="advantage";
+    private static final String DEUCE="deuce";
+    private static final String IN_PROGRESS="in progress";
 
     public static String playerStatus(int idPlayer,String player){
         return String.format(PLAYER,idPlayer,player);
@@ -17,10 +21,10 @@ public class ReportParsers {
         String status="";
 
         if(game.isAdvantage())
-            status= "advantage";
+            status= ADVANTAGE;
 
         else if(game.isDeuce())
-            status= "deuce";
+            status= DEUCE;
 
         else {
             status += getGamePointTranslation(game.getScorePlayer1());
@@ -43,10 +47,21 @@ public class ReportParsers {
     public static String matchStatus(Match match){
         String status="";
         if(!match.isFinished())
-            status= "in progress";
+            status= IN_PROGRESS;
         else
             status= "Player"+match.whoWin()+" wins";
 
         return String.format(MATCH,status);
+    }
+
+    public static String getReport(Match match,String player1Name,String player2Name){
+        StringBuilder report=new StringBuilder();
+        report.append(playerStatus(1,player1Name));
+        report.append(playerStatus(2,player2Name));
+        report.append(scoreStatus(match));
+        if(match.isFinished())
+            report.append(Report.gameStatus(match.getGame()));
+        report.append(Report.matchStatus(match));
+        return report.toString();
     }
 }

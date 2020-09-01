@@ -1,7 +1,7 @@
 public class Set extends Score{
 
     private static final int NORMAL_WIN_SETS_NEEDED=6;
-    private static final int TIEBREAK_SETS=6;
+    private static final int TIEBREAK =6;
     private static final int SPECIAL_WIN_SETS_NEEDED=7;
 
     public Set(){
@@ -12,7 +12,7 @@ public class Set extends Score{
     }
 
     public boolean isTieBreak(){
-        return getScorePlayer1()==TIEBREAK_SETS && getScorePlayer2()==TIEBREAK_SETS;
+        return getScorePlayer1()== TIEBREAK && getScorePlayer2()== TIEBREAK;
     }
 
     public boolean isFinished(){
