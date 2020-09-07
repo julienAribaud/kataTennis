@@ -152,14 +152,6 @@ public class Game extends Score{
         assertThat(game.isHasBeenWon()).isEqualTo(false);
     }
 
-    @Test
-    public void player1_score4_player2_score1_SHOULD_be_GAMEWON(){
-
-        game=new ScoreBuilder().withPlayer1Points(4).withPlayer2Points(2).buildGame();
-
-        assertThat(game.isHasBeenWon()).isEqualTo(true);
-    }
-
 public class Game extends Score{
 
     public static final int POINT_15=1;
@@ -191,8 +183,6 @@ public class Game extends Score{
         return false;
     }
 }
-
-
 
 
 // TIE breaks special case
