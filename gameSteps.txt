@@ -1,0 +1,243 @@
+//GAME
+
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.*;
+class GameTest {
+
+    @Test
+    public void player1Score4_SHOULD_display_40(){
+        Game game=new Game();
+        game.ScorePlayer(1);
+        game.ScorePlayer(1);
+        game.ScorePlayer(1);
+        game.ScorePlayer(1);
+
+        assertThat(game.getScore(1)).isEqualTo(4);
+        assertThat(game.getScore(2)).isEqualTo(0);
+    }
+}
+
+public class Game {
+
+    private int PointPlayer1=0;
+    private int PointPlayer2=0;
+
+    public void ScorePlayer(int playerNumber){
+        if(playerNumber==1) PointPlayer1++;
+        else PointPlayer2++;
+    }
+
+    public int getScore(int playerNumber){
+        if(playerNumber==1) return PointPlayer1;
+        else return PointPlayer2;
+    }
+}
+
+// DEUCE AND ADVANTAGE
+
+    @Test
+    public void player1_AND_player2_score3_SHOULD_be_DEUCE(){
+        Game game=new Game();
+        game.ScorePlayer(1);
+        game.ScorePlayer(1);
+        game.ScorePlayer(1);
+        game.ScorePlayer(2);
+        game.ScorePlayer(2);
+        game.ScorePlayer(2);
+
+        assertThat(game.isDeuce()).isEqualTo(true);
+    }
+
+    @Test
+    public void player1_score4_player2_score3_SHOULD_be_ADVANTAGE(){
+        Game game=new Game();
+        game.ScorePlayer(1);
+        game.ScorePlayer(1);
+        game.ScorePlayer(1);
+        game.ScorePlayer(1);
+        
+        game.ScorePlayer(2);
+        game.ScorePlayer(2);
+        game.ScorePlayer(2);
+
+        assertThat(game.isDeuce()).isEqualTo(true);
+    }
+
+public class Game {
+
+    private int PointPlayer1=0;
+    private int PointPlayer2=0;
+
+    public void ScorePlayer(int playerNumber){
+        if(playerNumber==1) PointPlayer1++;
+        else PointPlayer2++;
+    }
+
+    public int getScore(int playerNumber){
+        if(playerNumber==1) return PointPlayer1;
+        else return PointPlayer2;
+    }
+
+    public boolean isDeuce(){
+        return (PointPlayer1>2 && PointPlayer2>2 && PointPlayer1==PointPlayer2);
+    }
+
+    public boolean isAdvantage(){
+        return (PointPlayer1>2 && PointPlayer2>2 && PointPlayer1-PointPlayer2=1);
+    }
+}
+
+// REFACTO SCORE 
+
+    @Test
+    public void player1Score4_SHOULD_display_40(){
+
+        game=new ScoreBuilder().withPlayer1Points(4).buildGame();
+
+        assertThat(game.getScore(1)).isEqualTo(4);
+        assertThat(game.getScore(2)).isEqualTo(0);
+    }
+
+    @Test
+    public void player1_AND_player2_score3_SHOULD_be_DEUCE(){
+
+        game=new ScoreBuilder().withPlayer1Points(3).withPlayer2Points(3).buildGame();
+
+        assertThat(game.isDeuce()).isEqualTo(true);
+    }
+
+    @Test
+    public void player1_score4_player2_score3_SHOULD_be_ADVANTAGE(){
+
+        game=new ScoreBuilder().withPlayer1Points(4).withPlayer2Points(3).buildGame();
+
+        assertThat(game.isAdvantage()).isEqualTo(true);
+    }
+
+public class Game extends Score{
+
+    public Game(Score score) {
+        pointPlayer1=score.pointPlayer1;
+        pointPlayer2=score.pointPlayer2;
+    }
+
+    public boolean isDeuce(){
+        return (pointPlayer1>2
+                && pointPlayer2>2
+                && pointPlayer1==pointPlayer2);
+    }
+
+    public boolean isAdvantage(){
+        return (pointPlayer1>2
+                && pointPlayer2>2
+                && Math.abs(pointPlayer1-pointPlayer2)==1);
+    }
+}
+
+// magic number et win condition
+
+    @Test
+    public void player1_score4_player2_score1_SHOULD_be_GAMEWON(){
+
+        game=new ScoreBuilder().withPlayer1Points(4).withPlayer2Points(2).buildGame();
+
+        assertThat(game.isHasBeenWon()).isEqualTo(true);
+    }
+
+    @Test
+    public void player1_score4_player2_score3_SHOULD_not_be_GAMEWON(){
+
+        game=new ScoreBuilder().withPlayer1Points(4).withPlayer2Points(3).buildGame();
+
+        assertThat(game.isHasBeenWon()).isEqualTo(false);
+    }
+
+    @Test
+    public void player1_score4_player2_score1_SHOULD_be_GAMEWON(){
+
+        game=new ScoreBuilder().withPlayer1Points(4).withPlayer2Points(2).buildGame();
+
+        assertThat(game.isHasBeenWon()).isEqualTo(true);
+    }
+
+public class Game extends Score{
+
+    public static final int POINT_15=1;
+    public static final int POINT_30=2;
+    public static final int POINT_40=3;
+
+    public Game(Score score) {
+        pointPlayer1=score.pointPlayer1;
+        pointPlayer2=score.pointPlayer2;
+    }
+
+    public boolean isDeuce(){
+        return (pointPlayer1>POINT_30
+                && pointPlayer2>POINT_30
+                && pointPlayer1==pointPlayer2);
+    }
+
+    public boolean isAdvantage(){
+        return (pointPlayer1>POINT_30
+                && pointPlayer2>POINT_30
+                && Math.abs(pointPlayer1-pointPlayer2)==1);
+    }
+
+    public boolean isHasBeenWon(){
+        if( pointPlayer1 == 4 && pointPlayer2 <POINT_40 ||
+            pointPlayer2 == 4 && pointPlayer1 <POINT_40 ||
+            pointPlayer1 >POINT_30 && pointPlayer2 >POINT_30 && Math.abs(pointPlayer1-pointPlayer2)==2 )
+            return true;
+        return false;
+    }
+}
+
+
+
+
+// TIE breaks special case
+
+public class Game extends Score{
+
+    public static final int POINT_15=1;
+    public static final int POINT_30=2;
+    public static final int POINT_40=3;
+    public static final int NORMAL_WIN_GAME_NEEDED=4;
+    public static final int TIEBREAK_WIN_GAME_NEEDED=7;
+
+    public Game() {
+    }
+
+    public Game(Score score) {
+        pointPlayer1=score.pointPlayer1;
+        pointPlayer2=score.pointPlayer2;
+    }
+
+    public boolean isDeuce(){
+        return (pointPlayer1>POINT_30
+                && pointPlayer2>POINT_30
+                && pointPlayer1==pointPlayer2);
+    }
+
+    public boolean isAdvantage(){
+        return (pointPlayer1>POINT_30
+                && pointPlayer2>POINT_30
+                && Math.abs(pointPlayer1-pointPlayer2)==1);
+    }
+
+    public boolean isFinished(boolean isTieBreak){
+        if(isTieBreak) {
+            if (pointPlayer1>TIEBREAK_WIN_GAME_NEEDED-1 && (pointPlayer1 - pointPlayer2)>1 ||
+                pointPlayer2>TIEBREAK_WIN_GAME_NEEDED-1 && (pointPlayer2 - pointPlayer1)>1 )
+                return true;
+            return false;
+        }
+        else{
+            if (pointPlayer1 == NORMAL_WIN_GAME_NEEDED && pointPlayer2 < POINT_40 ||
+                pointPlayer2 == NORMAL_WIN_GAME_NEEDED && pointPlayer1 < POINT_40 ||
+                pointPlayer1 > POINT_30 && pointPlayer2 > POINT_30 && Math.abs(pointPlayer1 - pointPlayer2) == 2 )
+                return true;
+            return false;
+        }
+    }
+}
